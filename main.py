@@ -15,3 +15,4 @@ if __name__ == "__main__":
     res = requests.request("GET", now_playing_url, headers=headers)
     print(res.status_code)
     print(res.json())
+    
