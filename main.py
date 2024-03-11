@@ -5,7 +5,7 @@ import requests
 
 load_dotenv()
 api_key = os.getenv("API_KEY")
-base_url = "https://api.amctheatres.com/"
+base_url = "https://api.amctheatres.com"
 now_playing_url = base_url + "/v2/movies/views/now-playing"
 headers = {
     "X-AMC-Vendor-Key": api_key

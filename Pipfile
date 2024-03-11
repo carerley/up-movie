@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 python-dotenv = "*"
 requests = "*"
+lxml = "*"
+scrapy = "*"
+pytest = "*"
 
 [dev-packages]
 
