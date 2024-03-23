@@ -8,7 +8,7 @@ AMC_DOMAIN = "www.amctheatres.com"
 AMC_INTERNATIONAL_FILM_URL = f"https://{AMC_DOMAIN}/programs/international-films"
 
 
-class Finder:
+class TitleFinder:
     @classmethod
     def find_all_titles(cls, base_url: str, title_selector: str) -> list[str]:
         """
