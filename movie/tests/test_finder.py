@@ -9,4 +9,9 @@ class TestFinder(TestCase):
         assert len(titles) > 0
         print(titles)
 
+    def test_selenium_find_all_titles(self):
+        titles = TitleFinder.selenium_find_all_titles(base_url=AMC_INTERNATIONAL_FILM_URL, title_selector=AMC_TITLE_SELECTOR)
+        assert len(titles) > 0
+        print(titles)
+
 
