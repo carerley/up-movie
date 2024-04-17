@@ -1,4 +1,5 @@
 import os
+import time
 
 from lxml import html
 from selenium.webdriver.chrome import webdriver
@@ -15,6 +16,10 @@ WEB_DRIVER_PATH = os.getenv("WEB_DRIVER_PATH")
 
 
 class TitleFinder:
+    def __init__(self) -> None:
+        os.path.join(WEB_DRIVER_PATH)
+        self.driver = webdriver.WebDriver()
+
     @classmethod
     def find_all_titles(cls, base_url: str, title_selector: str) -> list[str]:
         """
@@ -34,13 +39,11 @@ class TitleFinder:
         """
         return cls.__find_all_titles(ZenRowWebRequestor(), base_url, title_selector)
 
-    @classmethod
-    def selenium_find_all_titles(cls, base_url: str, title_selector: str) -> list[str]:
+    def selenium_find_all_titles(self, base_url: str, title_selector: str) -> list[str]:
         """use selenium to drive a browser to scrape element like human. """
-        webdriver.Options
-        driver = webdriver.ChromiumDriver(options={"driver_path": WEB_DRIVER_PATH})
-        driver.get(base_url)
-        elements = driver.find_elements(By.CSS_SELECTOR, title_selector)
+        self.driver.get(base_url)
+        self._wait_for_ready_state()
+        elements = self.driver.find_elements(By.CSS_SELECTOR, title_selector)
         titles = []
         for element in elements:
             titles.append(element.text)
@@ -57,3 +60,14 @@ class TitleFinder:
             titles.append(element.text)
 
         return titles
+
+
+    def _wait_for_ready_state(self):
+        TIME_OUT = 10 # sec
+        start = time.time()
+        while time.time() - start <= TIME_OUT:
+            state = self.driver.execute_script("return document.readyState;")
+            if state == "complete":
+                return 
+            time.sleep(1)
+        raise RuntimeError(f"Ready state: {state} is not complete after {TIME_OUT} sec.")
