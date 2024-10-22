@@ -83,3 +83,14 @@ class TitleFinder:
             titles.append(element.text)
 
         return titles
+
+
+    def _wait_for_ready_state(self):
+        TIME_OUT = 10 # sec
+        start = time.time()
+        while time.time() - start <= TIME_OUT:
+            state = self.driver.execute_script("return document.readyState;")
+            if state == "complete":
+                return 
+            time.sleep(1)
+        raise RuntimeError(f"Ready state: {state} is not complete after {TIME_OUT} sec.")
